@@ -243,6 +243,20 @@ window.glideTo = (el, left, smooth) => {
     btn.addEventListener('click', () => btn.setAttribute('aria-expanded', String(contents.classList.toggle('is-open'))));
     links.forEach(a => a.addEventListener('click', close));
     document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && contents.classList.contains('is-open')) { close(); btn.focus(); } });
+    // Touch screens wide enough for the side rail (iPad landscape) can't hover it open:
+    // the first tap opens the list, a tap on a chapter goes there, a tap elsewhere closes it
+    if (matchMedia('(hover: none)').matches) {
+      const rail = () => matchMedia('(min-width: 1100px)').matches;
+      contents.addEventListener('click', ev => {
+        const a = ev.target.closest('a');
+        if (!a || !rail()) return;
+        if (!contents.classList.contains('is-rail')) { ev.preventDefault(); contents.classList.add('is-rail'); return; }
+        contents.classList.remove('is-rail');
+      }, true);
+      document.addEventListener('click', ev => {
+        if (!contents.contains(ev.target)) contents.classList.remove('is-rail');
+      });
+    }
   }
 
   // Hero screens drift a little as you scroll past them
