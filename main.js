@@ -338,7 +338,7 @@ window.glideTo = (el, left, smooth) => {
 
     // the menu shows which part of the page you're in
     const navLinks = [...document.querySelectorAll('.top__nav a')];
-    const map = { work: '/#work', explorations: '/#work', about: '/#about', resume: '/#resume', contact: '/#contact' };
+    const map = { work: '/design-portfolio/#work', explorations: '/design-portfolio/#work', about: '/design-portfolio/#about', resume: '/design-portfolio/#resume', contact: '/design-portfolio/#contact' };
     if ('IntersectionObserver' in window) {
       const nio = new IntersectionObserver(entries => entries.forEach(en => {
         if (!en.isIntersecting) return;
